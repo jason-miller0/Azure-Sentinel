@@ -4,7 +4,7 @@ namespace SampleDataIngestTool
 {
     public class SampleDataPath
     {
-        static readonly string subDirPath = "\\Sample Data\\Custom\\";
+        static readonly string subDirPath = "/Sample Data/Mimecast";
         public SampleDataPath()
         {
 

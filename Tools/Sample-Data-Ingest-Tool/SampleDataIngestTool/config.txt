@@ -1,7 +1,7 @@
 ﻿{
-	"workspaceId": "enter_your_workspaceId_or_customerId_here",
-	"sharedKey": "enter_your_workspace_primary_key_here",
-	"clientId": "enter_your_clientId_here",
-	"clientSecret": "enter_your_client_secret_here",
-	"domain": "enter_your_app_domain_or_tenantId_here"
+	"workspaceId": "84c4c1b1-e590-4e0a-9f02-8290917541ca",
+	"sharedKey": "6H3eHsaDzLa2JJSzorjZdVe9hCd5cI0p/YyahBmFIkcRqv4LeqCJUb/Hid+BAg/Rzzaq8i4bUjl2SuIaTnTBJg==",
+	"clientId": "d9fb3d2c-0a1d-4aca-b9c2-00d184881d1f",
+	"clientSecret": "wsznTda~XOC0G5.DL4ZXuVQU__75n5SheZ",
+	"domain": "0872e408-c1cf-4806-8cc0-9244006969e3"
 }
