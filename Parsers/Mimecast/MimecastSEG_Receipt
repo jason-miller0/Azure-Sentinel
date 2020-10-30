@@ -1,0 +1,22 @@
+// Mimecast 
+// Last Updated Date: October 30, 2020
+//
+// This parser parses events for Mimecast Secure Email Gateway logs
+// https://www.mimecast.com/tech-connect/documentation/tutorials/understanding-siem-logs/
+//
+// Parser Notes:
+// 1. This parser assumes logs are collected into the mimecast_seg_CL table.
+//
+// Usage Instruction:
+
+// Paste the below query into log analytics, click on Save and select as Function from the drop down, specifying the functions name and a alias.
+// Functions can take 10-15 minutes to activate. You can use the function alias within other queries (e.g. alias | take 10).
+//
+//
+
+mimecast_seg_CL
+| where RawData has "mail_receipt"
+| extend mcast_payload = substring(RawData, 20)
+| extend mcast_json=parse_json(mcast_payload)
+| extend mimecastEventId=mcast_json.mimecastEventId, acc=mcast_json.acc, aCode=mcast_json.aCode, Act=mcast_json.Act, Cphr=mcast_json.Cphr, Dir=mcast_json.Dir, Error=mcast_json.Error, SourceIP=mcast_json.IP, MsgId=mcast_json.MsgId, Rcpt=mcast_json.Rcpt, headerFrom=mcast_json.headerFrom, RejCode=mcast_json.RejCode, RejInfo=mcast_json.RejInfo, RejType=mcast_json.RejType, Sender=mcast_json.Sender, SpamInfo=mcast_json.SpamInfo, SpamLimit=mcast_json.SpamLimit, SpamScore=mcast_json.SpamScore, Subject=mcast_json.Subject, TlsVer=mcast_json.TlsVer, Virus=mcast_json.Virus
+| distinct TimeGenerated, tostring(mimecastEventId), tostring(acc), tostring(aCode), tostring(Act), tostring(Cphr), tostring(Dir), tostring(Error), tostring(SourceIP), tostring(MsgId), tostring(Rcpt), tostring(headerFrom), tostring(RejCode), tostring(RejType), tostring(Sender), tostring(SpamInfo), tostring(SpamLimit), tostring(SpamScore), tostring(Subject), tostring(TlsVer), tostring(Virus)

@@ -1,0 +1,22 @@
+// Mimecast 
+// Last Updated Date: October 30, 2020
+//
+// This parser parses events for Mimecast Secure Email Gateway logs
+// https://www.mimecast.com/tech-connect/documentation/tutorials/understanding-siem-logs/
+//
+// Parser Notes:
+// 1. This parser assumes logs are collected into the mimecast_seg_CL table.
+//
+// Usage Instruction:
+
+// Paste the below query into log analytics, click on Save and select as Function from the drop down, specifying the functions name and a alias.
+// Functions can take 10-15 minutes to activate. You can use the function alias within other queries (e.g. alias | take 10).
+//
+//
+
+mimecast_seg_CL
+| where RawData has "mail_process"
+| extend mcast_payload = substring(RawData, 20)
+| extend mcast_json=parse_json(mcast_payload)
+| extend mimecastEventId=mcast_json.mimecastEventId, acc=mcast_json.acc, aCode=mcast_json.aCode, Act=mcast_json.Act, Hld=mcast_json.Hld, MsgId=mcast_json.MsgId, MsgSize=mcast_json.MsgSize, AttCnt=mcast_json.AttCnt, AttSize=mcast_json.AttSize, AttNames=mcast_json.AttNames, IPInternalName=mcast_json.IPInternalName, IPNewDomain=mcast_json.IPNewDomain, IPReplyMismatch=mcast_json.IPReplyMismatch, IPSimilarDomain=mcast_json.IPSimilarDomain, IPThreatDict=mcast_json.IPThreatDict
+| distinct TimeGenerated, tostring(mimecastEventId), tostring(acc), tostring(aCode), tostring(Act), tostring(Hld), tostring(MsgId), tostring(MsgSize), tostring(AttCnt), tostring(AttSize), tostring(AttNames), tostring(IPInternalName), tostring(IPNewDomain), tostring(IPReplyMismatch), tostring(IPSimilarDomain), tostring(IPThreatDict)

@@ -1,0 +1,22 @@
+// Mimecast 
+// Last Updated Date: October 30, 2020
+//
+// This parser parses events for Mimecast Secure Email Gateway logs
+// https://www.mimecast.com/tech-connect/documentation/tutorials/understanding-siem-logs/
+//
+// Parser Notes:
+// 1. This parser assumes logs are collected into the mimecast_seg_CL table.
+//
+// Usage Instruction:
+
+// Paste the below query into log analytics, click on Save and select as Function from the drop down, specifying the functions name and a alias.
+// Functions can take 10-15 minutes to activate. You can use the function alias within other queries (e.g. alias | take 10).
+//
+//
+
+mimecast_seg_CL
+| where RawData has "mail_delivery"
+| extend mcast_payload = substring(RawData, 20)
+| extend mcast_json=parse_json(mcast_payload)
+| extend mimecastEventId=mcast_json.mimecastEventId, acc=mcast_json.acc, aCode=mcast_json.aCode, Cphr=mcast_json.Cphr, Dir=mcast_json.Dir, Error=mcast_json.Err, DestinationIP=mcast_json.IP, MsgId=mcast_json.MsgId, Rcpt=mcast_json.Rcpt, RejCode=mcast_json.RejCode, RejInfo=mcast_json.RejInfo, RejType=mcast_json.RejType, Sender=mcast_json.Sender, AttCnt=mcast_json.AttCnt, AttSize=mcast_json.AttSize, Subject=mcast_json.Subject, UseTls=mcast_json.UseTls, TlsVer=mcast_json.TlsVer, Route=mcast_json.Route, Snt=mcast_json.Snt, Attempt=mcast_json.Attempt, Latency=mcast_json.Latency, ReceiptAck=mcast_json.ReceiptAck, Delivered=mcast_json.Delivered
+| distinct TimeGenerated, tostring(mimecastEventId), tostring(acc), tostring(aCode), tostring(Cphr), tostring(Dir), tostring(Error), tostring(DestinationIP), tostring(MsgId), tostring(Rcpt), tostring(RejCode), tostring(RejInfo), tostring(RejType), tostring(Sender), tostring(AttCnt), tostring(AttSize), tostring(Subject), tostring(UseTls), tostring(TlsVer), tostring(Route), tostring(Snt), tostring(Attempt), tostring(Latency), tostring(ReceiptAck), tostring(Delivered)

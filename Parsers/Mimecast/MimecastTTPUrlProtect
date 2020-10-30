@@ -1,0 +1,21 @@
+// Mimecast 
+// Last Updated Date: October 30, 2020
+//
+// This parser parses events for Mimecast Secure Email Gateway logs
+// https://www.mimecast.com/tech-connect/documentation/tutorials/understanding-siem-logs/
+//
+// Parser Notes:
+// 1. This parser assumes logs are collected into the mimecast_ttp_url_CL table.
+//
+// Usage Instruction:
+
+// Paste the below query into log analytics, click on Save and select as Function from the drop down, specifying the functions name and a alias.
+// Functions can take 10-15 minutes to activate. You can use the function alias within other queries (e.g. alias | take 10).
+//
+//
+
+mimecast_ttp_url_CL
+| extend mcast_payload = substring(RawData, 20)
+| extend mcast_json=parse_json(mcast_payload)
+| extend userEmailAddress=mcast_json.userEmailAddress, url=mcast_json.url, ttpDefinition=mcast_json.ttpDefinition, action=mcast_json.action, adminOverride=mcast_json.adminOverride, userOverride=mcast_json.userOverride, scanResult=mcast_json.scanResult, category=mcast_json.category, userAwarenessAction=mcast_json.userAwarenessAction, route=mcast_json.route, similarDomain=mcast_json.similarDomain, heuristicDomainSource=mcast_json.heuristicDomainSource
+| distinct TimeGenerated, tostring(userEmailAddress), tostring(url), tostring(ttpDefinition), tostring(action), tostring(adminOverride), tostring(userOverride), tostring(scanResult), tostring(scanResult), tostring(category), tostring(userAwarenessAction), tostring(route), tostring(similarDomain), tostring(heuristicDomainSource

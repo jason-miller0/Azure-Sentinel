@@ -1,0 +1,22 @@
+// Mimecast 
+// Last Updated Date: October 30, 2020
+//
+// This parser parses events for Mimecast Secure Email Gateway logs
+// https://www.mimecast.com/tech-connect/documentation/endpoint-reference/logs-and-statistics/get-ttp-impersonation-protect-logs/#response
+//
+// Parser Notes:
+// 1. This parser assumes logs are collected into the mimecast_ttp_impersonation_CL table.
+//
+// Usage Instruction:
+
+// Paste the below query into log analytics, click on Save and select as Function from the drop down, specifying the functions name and a alias.
+// Functions can take 10-15 minutes to activate. You can use the function alias within other queries (e.g. alias | take 10).
+//
+//
+
+mimecast_ttp_impersonation_CL
+| where RawData has "ttp_impersonation"
+| extend mcast_payload = substring(RawData, 20)
+| extend mcast_json=parse_json(mcast_payload)
+| extend senderAddress=mcast_json.senderAddress, recipientAddress=mcast_json.recipientAddress, subject=mcast_json.subject, definition=mcast_json.definition, hits=mcast_json.hits, identifiers=mcast_json.identifiers, action=mcast_json.action, taggedExternal=mcast_json.taggedExternal, taggedMalicious=mcast_json.taggedMalicious, senderIpAddress=mcast_json.senderIpAddress
+| distinct TimeGenerated, tostring(senderAddress), tostring(recipientAddress), tostring(subject), tostring(definition), toint(hits), tostring(identifiers), tostring(action), toboolean(taggedExternal), toboolean(taggedMalicious), tostring(senderIpAddress)
