@@ -223,6 +223,7 @@
             1.  Click on the workspace advanced settings **Configuration**, select **Data** and then **Custom Logs**.\n
             2.  Set the type as Linux.\n
             3.  Use the below custom name for each log file show below;\n
+            
             *Log file paths* to *Custom log table names*
             /opt/Mimecast/Logs/audit.log > mimecast_audit_CL
             /opt/Mimecast/Logs/ttp_url.log > mimecast_ttp_url_CL
