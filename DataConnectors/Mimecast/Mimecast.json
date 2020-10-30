@@ -173,11 +173,10 @@
     },
     "instructionSteps": [
         {
-            "title": "", 
+            "title": "",
             "description": ">This data connector depends on a set of parsers based on Kusto Functions to work as expected. [Follow these steps](Link to Kusto Function on Azure Sentinel GitHub) to create the Kusto Functions aliases for, **Mimecast**",
-            "instructions": [ 
-            ]    
-        }, 
+            "instructions": [ ]
+        },
         {
             "title": "1. Install and onboard the agent for Linux",
             "description": "Install the agent on the same computer which the logs are being collected.\n\n>  Mimecast logs are collected using the **Linux** agent.",
@@ -218,23 +217,20 @@
         },
         {
             "title": "2. Configure the logs to be collected",
-            "description": "Define each log file with pre-determined Custom Log names,\n
-            this is important to ensure references to Kusto Functions within Workbooks and queries operate as intended.\n\n
-            1.  Click on the workspace advanced settings **Configuration**, select **Data** and then **Custom Logs**.\n
-            2.  Set the type as Linux.\n
-            3.  Use the below custom name for each log file show below;\n
-            
-            *Log file paths* to *Custom log table names*
-            /opt/Mimecast/Logs/audit.log > mimecast_audit_CL
-            /opt/Mimecast/Logs/ttp_url.log > mimecast_ttp_url_CL
-            /opt/Mimecast/Logs/ttp_impersonation.log > mimecast_ttp_impersonation_CL
-            /opt/Mimecast/Logs/ttp_attachment.log > mimecast_ttp_attachment_CL
-            /opt/Mimecast/Logs/siem.log > mimecast_seg_CL
-            /opt/Mimecast/Logs/threat_intel_feed.log > mimecast_threat_intelligence_CL
-            4.  Repeat steps 2-3 for each of files under the /opt/Mimecast/Logs directory.
-            5.  Select **Apply below configuration to my machines**.\n
-            6.  Click **Save**.",
-            "instructions": [
+            "description": "Define each log file with pre-determined Custom Log names,\n this is important to ensure references to Azure Functions within Workbooks and queries operate as intended.",
+            "instructions": ["Click on the workspace advanced settings **Configuration**, select **Data** and then **Custom Logs**.\n
+            >   Set the type as Linux.\n
+            >   Use the below custom name for each log file show below;\n\n
+            *Log file paths* to *Custom Logs name*\n\n
+            /opt/Mimecast/Logs/audit.log > mimecast_audit_CL\n
+            /opt/Mimecast/Logs/ttp_url.log > mimecast_ttp_url_CL\n
+            /opt/Mimecast/Logs/ttp_impersonation.log > mimecast_ttp_impersonation_CL\n
+            /opt/Mimecast/Logs/ttp_attachment.log > mimecast_ttp_attachment_CL\n
+            /opt/Mimecast/Logs/siem.log > mimecast_seg_CL\n
+            /opt/Mimecast/Logs/threat_intel_feed.log > mimecast_threat_intelligence_CL\n
+            >   Repeat steps 2-3 for each of files under the /opt/Mimecast/Logs directory.\n
+            >   Select **Apply below configuration to my machines**.\n
+            >   Click **Save**.",
                 {
                     "parameters": {
                         "linkType": "OpenAdvancedWorkspaceSettings"
