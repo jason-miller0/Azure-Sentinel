@@ -1,10 +1,10 @@
 // Mimecast 
 // Last Updated Date: October 30, 2020
 //
-// This parser parses events for Mimecast Secure Email Gateway logs
-// https://www.mimecast.com/tech-connect/documentation/tutorials/understanding-siem-logs/
+// This parser parses events for Mimecast TTP - URL Protect logs
+// https://www.mimecast.com/tech-connect/documentation/endpoint-reference/logs-and-statistics/get-ttp-url-logs/#response
 //
-// Parser Notes:
+// Notes:
 // 1. This parser assumes logs are collected into the mimecast_ttp_url_CL table.
 //
 // Usage Instruction:
@@ -12,7 +12,9 @@
 // Paste the below query into log analytics, click on Save and select as Function from the drop down, specifying the functions name and a alias.
 // Functions can take 10-15 minutes to activate. You can use the function alias within other queries (e.g. alias | take 10).
 //
+// References:
 //
+// Using functions in Azure monitor log queries: https://docs.microsoft.com/azure/azure-monitor/log-query/functions
 
 mimecast_ttp_url_CL
 | extend mcast_payload = substring(RawData, 20)

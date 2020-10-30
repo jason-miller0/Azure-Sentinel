@@ -1,0 +1,25 @@
+// Mimecast 
+// Last Updated Date: October 30, 2020
+//
+// This parser parses events for Mimecast Targeted Threat Intelligence.
+// https://www.mimecast.com/tech-connect/documentation/endpoint-reference/threat-intel/get-feed/#response
+//
+// Notes:
+// 1. This parser assumes logs are collected into the mimecast_threat_intelligence_CL table.
+//
+// Usage Instruction:
+
+// Paste the below query into log analytics, click on Save and select as Function from the drop down, specifying the functions name and a alias.
+// Functions can take 10-15 minutes to activate. You can use the function alias within other queries (e.g. alias | take 10).
+//
+//
+// References:
+//
+// Using functions in Azure monitor log queries: https://docs.microsoft.com/azure/azure-monitor/log-query/functions
+
+mimecast_threat_intelligence_CL
+| where RawData has "threat_intel_feed_csv_customer"
+| extend mcast_payload = substring(RawData, 20)
+| extend mcast_json=parse_json(mcast_payload)
+| extend key=mcast_json.key, FileMimeType=mcast_json.FileMimeType, FileName=mcast_json.FileName, FileSize=mcast_json.FileSize, MD5=mcast_json.MD5, Observations=mcast_json.Observations, RecipientAddress=mcast_json.RecipientAddress, Route=mcast_json.Route, SHA1=mcast_json.SHA1, SHA256=mcast_json.SHA256, SenderAddress=mcast_json.SenderAddress, SenderDomain=mcast_json.SenderDomain, SendingIP=mcast_json.SendingIP
+| distinct TimeGenerated, toint(key), tostring(FileMimeType), tostring(FileName), toint(FileSize), tostring(MD5), tostring(Observations), tostring(RecipientAddress), tostring(Route), tostring(SHA1), tostring(SHA256), tostring(SenderAddress), tostring(SenderDomain), tostring(SendingIP)

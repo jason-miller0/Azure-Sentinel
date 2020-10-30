@@ -1,0 +1,24 @@
+// Mimecast 
+// Last Updated Date: October 30, 2020
+//
+// This parser parses events for Mimecast audit and authentication logs
+// https://www.mimecast.com/tech-connect/documentation/endpoint-reference/logs-and-statistics/get-audit-events/#response
+//
+// Notes:
+// 1. This parser assumes logs are collected into the mimecast_audit_CL table.
+//
+// Usage Instruction:
+
+// Paste the below query into log analytics, click on Save and select as Function from the drop down, specifying the functions name and a alias.
+// Functions can take 10-15 minutes to activate. You can use the function alias within other queries (e.g. alias | take 10).
+//
+//
+// References:
+//
+// Using functions in Azure monitor log queries: https://docs.microsoft.com/azure/azure-monitor/log-query/functions
+
+mimecast_audit_CL
+| extend mcast_payload = substring(RawData, 20)
+| extend mcast_json=parse_json(mcast_payload)
+| extend mimecastEventId=mcast_json.mimecastEventId, mcType=mcast_json.mcType, user=mcast_json.user, app=mcast_json.app, src=mcast_json.src, action=mcast_json.action, method=mcast_json.method, auditType=mcast_json.auditType, category=mcast_json.category, id=mcast_json.id
+| distinct TimeGenerated, tostring(mimecastEventId), tostring(mcType), tostring(user), tostring(app), tostring(src), tostring(action), tostring(method), tostring(auditType), tostring(category), tostring(id)

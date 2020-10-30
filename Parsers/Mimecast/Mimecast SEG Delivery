@@ -1,10 +1,10 @@
 // Mimecast 
 // Last Updated Date: October 30, 2020
 //
-// This parser parses events for Mimecast Secure Email Gateway logs
+// This parser parses events for Mimecast Secure Email Gateway delivery logs
 // https://www.mimecast.com/tech-connect/documentation/tutorials/understanding-siem-logs/
 //
-// Parser Notes:
+// Notes:
 // 1. This parser assumes logs are collected into the mimecast_seg_CL table.
 //
 // Usage Instruction:
@@ -13,6 +13,9 @@
 // Functions can take 10-15 minutes to activate. You can use the function alias within other queries (e.g. alias | take 10).
 //
 //
+// References:
+//
+// Using functions in Azure monitor log queries: https://docs.microsoft.com/azure/azure-monitor/log-query/functions
 
 mimecast_seg_CL
 | where RawData has "mail_delivery"

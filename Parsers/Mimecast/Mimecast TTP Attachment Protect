@@ -1,0 +1,24 @@
+// Mimecast 
+// Last Updated Date: October 30, 2020
+//
+// This parser parses events for Mimecast TTP - Attachment Protect logs
+// https://www.mimecast.com/tech-connect/documentation/endpoint-reference/logs-and-statistics/get-attachment-protection-logs/#response
+//
+// Notes:
+//
+// 1. This parser assumes logs are collected into the mimecast_ttp_attachment_CL table.
+//
+// Usage Instruction:
+
+// Paste the below query into log analytics, click on Save and select as Function from the drop down, specifying the functions name and a alias.
+// Functions can take 10-15 minutes to activate. You can use the function alias within other queries (e.g. alias | take 10).
+//
+// References:
+//
+// Using functions in Azure monitor log queries: https://docs.microsoft.com/azure/azure-monitor/log-query/functions
+
+mimecast_ttp_attachment_CL
+| extend mcast_payload = substring(RawData, 20)
+| extend mcast_json=parse_json(mcast_payload)
+| extend result=mcast_json.result, senderAddress=mcast_json.senderAddress, fileName=mcast_json.fileName, actionTriggered=mcast_json.actionTriggered, route=mcast_json.route, details=mcast_json.details, recipientAddress=mcast_json.recipientAddress, fileType=mcast_json.fileType
+| distinct TimeGenerated, tostring(result), tostring(senderAddress), tostring(fileName), tostring(actionTriggered), tostring(route), tostring(details), tostring(recipientAddress), tostring(fileType)

@@ -14,7 +14,7 @@
             "type": 4,
             "isRequired": true,
             "value": {
-              "durationMs": 2419200000
+              "durationMs": 2592000000
             },
             "typeSettings": {
               "selectableValues": [
@@ -65,8 +65,7 @@
                 }
               ],
               "allowCustom": true
-            },
-            "resourceType": "microsoft.insights/components"
+            }
           }
         ],
         "style": "pills",
@@ -93,10 +92,10 @@
       "type": 3,
       "content": {
         "version": "KqlItem/1.0",
-        "query": "Mimecast_mail_CL\n| where RawData has \"mail_receipt\"\n| where TimeGenerated > ago(100d)\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend mimecastEventId=mcast_json.mimecastEventId\n| summarize count() by tostring(mimecastEventId), bin(TimeGenerated, 1h)\n| render columnchart kind= stacked  \n",
+        "query": "mimecast_seg_CL\n| where RawData has \"mail_receipt\"\n| where TimeGenerated > ago(100d)\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend mimecastEventId=mcast_json.mimecastEventId\n| summarize count() by tostring(mimecastEventId), bin(TimeGenerated, 1h)\n| render columnchart kind= stacked  \n",
         "size": 0,
         "timeContext": {
-          "durationMs": 0
+          "durationMs": 7776000000
         },
         "timeContextFromParameter": "time_range",
         "queryType": 0,
@@ -148,10 +147,10 @@
       "type": 3,
       "content": {
         "version": "KqlItem/1.0",
-        "query": "Mimecast_mail_CL\n| where RawData has \"mail_receipt\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend mimecastEventId=mcast_json.mimecastEventId, acc=mcast_json.acc, aCode=mcast_json.aCode, Act=mcast_json.Act, Cphr=mcast_json.Cphr, Dir=mcast_json.Dir, Error=mcast_json.Error, SourceIP=mcast_json.IP, MsgId=mcast_json.MsgId, Rcpt=mcast_json.Rcpt, headerFrom=mcast_json.headerFrom, RejCode=mcast_json.RejCode, RejInfo=mcast_json.RejInfo, RejType=mcast_json.RejType, Sender=mcast_json.Sender, SpamInfo=mcast_json.SpamInfo, SpamLimit=mcast_json.SpamLimit, SpamScore=mcast_json.SpamScore, Subject=mcast_json.Subject, TlsVer=mcast_json.TlsVer, Virus=mcast_json.Virus\n| distinct TimeGenerated, tostring(mimecastEventId), tostring(acc), tostring(aCode), tostring(Act), tostring(Cphr), tostring(Dir), tostring(Error), tostring(SourceIP), tostring(MsgId), tostring(Rcpt), tostring(headerFrom), tostring(RejCode), tostring(RejType), tostring(Sender), tostring(SpamInfo), tostring(SpamLimit), tostring(SpamScore), tostring(Subject), tostring(TlsVer), tostring(Virus)\n",
+        "query": "mimecast_seg_CL\n| where RawData has \"mail_receipt\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend mimecastEventId=mcast_json.mimecastEventId, acc=mcast_json.acc, aCode=mcast_json.aCode, Act=mcast_json.Act, Cphr=mcast_json.Cphr, Dir=mcast_json.Dir, Error=mcast_json.Error, SourceIP=mcast_json.IP, MsgId=mcast_json.MsgId, Rcpt=mcast_json.Rcpt, headerFrom=mcast_json.headerFrom, RejCode=mcast_json.RejCode, RejInfo=mcast_json.RejInfo, RejType=mcast_json.RejType, Sender=mcast_json.Sender, SpamInfo=mcast_json.SpamInfo, SpamLimit=mcast_json.SpamLimit, SpamScore=mcast_json.SpamScore, Subject=mcast_json.Subject, TlsVer=mcast_json.TlsVer, Virus=mcast_json.Virus\n| distinct TimeGenerated, tostring(mimecastEventId), tostring(acc), tostring(aCode), tostring(Act), tostring(Cphr), tostring(Dir), tostring(Error), tostring(SourceIP), tostring(MsgId), tostring(Rcpt), tostring(headerFrom), tostring(RejCode), tostring(RejType), tostring(Sender), tostring(SpamInfo), tostring(SpamLimit), tostring(SpamScore), tostring(Subject), tostring(TlsVer), tostring(Virus)\n",
         "size": 0,
         "timeContext": {
-          "durationMs": 0
+          "durationMs": 7776000000
         },
         "timeContextFromParameter": "time_range",
         "queryType": 0,
@@ -171,10 +170,10 @@
       "type": 3,
       "content": {
         "version": "KqlItem/1.0",
-        "query": "Mimecast_mail_CL\n| where RawData has \"mail_process\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend mimecastEventId=mcast_json.mimecastEventId\n| summarize count() by tostring(mimecastEventId), bin(TimeGenerated, 1h)\n\n",
+        "query": "mimecast_seg_CL\n| where RawData has \"mail_process\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend mimecastEventId=mcast_json.mimecastEventId\n| summarize count() by tostring(mimecastEventId), bin(TimeGenerated, 1h)\n\n",
         "size": 0,
         "timeContext": {
-          "durationMs": 0
+          "durationMs": 7776000000
         },
         "timeContextFromParameter": "time_range",
         "queryType": 0,
@@ -187,10 +186,10 @@
       "type": 3,
       "content": {
         "version": "KqlItem/1.0",
-        "query": "Mimecast_mail_CL\n| where RawData has \"mail_process\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend mimecastEventId=mcast_json.mimecastEventId, acc=mcast_json.acc, aCode=mcast_json.aCode, Act=mcast_json.Act, Hld=mcast_json.Hld, MsgId=mcast_json.MsgId, MsgSize=mcast_json.MsgSize, AttCnt=mcast_json.AttCnt, AttSize=mcast_json.AttSize, AttNames=mcast_json.AttNames, IPInternalName=mcast_json.IPInternalName, IPNewDomain=mcast_json.IPNewDomain, IPReplyMismatch=mcast_json.IPReplyMismatch, IPSimilarDomain=mcast_json.IPSimilarDomain, IPThreatDict=mcast_json.IPThreatDict\n| distinct TimeGenerated, tostring(mimecastEventId), tostring(acc), tostring(aCode), tostring(Act), tostring(Hld), tostring(MsgId), tostring(MsgSize), tostring(AttCnt), tostring(AttSize), tostring(AttNames), tostring(IPInternalName), tostring(IPNewDomain), tostring(IPReplyMismatch), tostring(IPSimilarDomain), tostring(IPThreatDict)",
+        "query": "mimecast_seg_CL\n| where RawData has \"mail_process\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend mimecastEventId=mcast_json.mimecastEventId, acc=mcast_json.acc, aCode=mcast_json.aCode, Act=mcast_json.Act, Hld=mcast_json.Hld, MsgId=mcast_json.MsgId, MsgSize=mcast_json.MsgSize, AttCnt=mcast_json.AttCnt, AttSize=mcast_json.AttSize, AttNames=mcast_json.AttNames, IPInternalName=mcast_json.IPInternalName, IPNewDomain=mcast_json.IPNewDomain, IPReplyMismatch=mcast_json.IPReplyMismatch, IPSimilarDomain=mcast_json.IPSimilarDomain, IPThreatDict=mcast_json.IPThreatDict\n| distinct TimeGenerated, tostring(mimecastEventId), tostring(acc), tostring(aCode), tostring(Act), tostring(Hld), tostring(MsgId), tostring(MsgSize), tostring(AttCnt), tostring(AttSize), tostring(AttNames), tostring(IPInternalName), tostring(IPNewDomain), tostring(IPReplyMismatch), tostring(IPSimilarDomain), tostring(IPThreatDict)",
         "size": 0,
         "timeContext": {
-          "durationMs": 0
+          "durationMs": 7776000000
         },
         "timeContextFromParameter": "time_range",
         "queryType": 0,
@@ -210,10 +209,10 @@
       "type": 3,
       "content": {
         "version": "KqlItem/1.0",
-        "query": "Mimecast_mail_CL\n| where RawData has \"mail_delivery\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend mimecastEventId=mcast_json.mimecastEventId\n| summarize count() by tostring(mimecastEventId), bin(TimeGenerated, 1h)",
+        "query": "mimecast_seg_CL\n| where RawData has \"mail_delivery\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend mimecastEventId=mcast_json.mimecastEventId\n| summarize count() by tostring(mimecastEventId), bin(TimeGenerated, 1h)",
         "size": 0,
         "timeContext": {
-          "durationMs": 0
+          "durationMs": 7776000000
         },
         "timeContextFromParameter": "time_range",
         "queryType": 0,
@@ -226,10 +225,10 @@
       "type": 3,
       "content": {
         "version": "KqlItem/1.0",
-        "query": "Mimecast_mail_CL\n| where RawData has \"mail_delivery\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend mimecastEventId=mcast_json.mimecastEventId, acc=mcast_json.acc, aCode=mcast_json.aCode, Cphr=mcast_json.Cphr, Dir=mcast_json.Dir, Error=mcast_json.Err, DestinationIP=mcast_json.IP, MsgId=mcast_json.MsgId, Rcpt=mcast_json.Rcpt, RejCode=mcast_json.RejCode, RejInfo=mcast_json.RejInfo, RejType=mcast_json.RejType, Sender=mcast_json.Sender, AttCnt=mcast_json.AttCnt, AttSize=mcast_json.AttSize, Subject=mcast_json.Subject, UseTls=mcast_json.UseTls, TlsVer=mcast_json.TlsVer, Route=mcast_json.Route, Snt=mcast_json.Snt, Attempt=mcast_json.Attempt, Latency=mcast_json.Latency, ReceiptAck=mcast_json.ReceiptAck, Delivered=mcast_json.Delivered\n| distinct TimeGenerated, tostring(mimecastEventId), tostring(acc), tostring(aCode), tostring(Cphr), tostring(Dir), tostring(Error), tostring(DestinationIP), tostring(MsgId), tostring(Rcpt), tostring(RejCode), tostring(RejInfo), tostring(RejType), tostring(Sender), tostring(AttCnt), tostring(AttSize), tostring(Subject), tostring(UseTls), tostring(TlsVer), tostring(Route), tostring(Snt), tostring(Attempt), tostring(Latency), tostring(ReceiptAck), tostring(Delivered)\n",
+        "query": "mimecast_seg_CL\n| where RawData has \"mail_delivery\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend mimecastEventId=mcast_json.mimecastEventId, acc=mcast_json.acc, aCode=mcast_json.aCode, Cphr=mcast_json.Cphr, Dir=mcast_json.Dir, Error=mcast_json.Err, DestinationIP=mcast_json.IP, MsgId=mcast_json.MsgId, Rcpt=mcast_json.Rcpt, RejCode=mcast_json.RejCode, RejInfo=mcast_json.RejInfo, RejType=mcast_json.RejType, Sender=mcast_json.Sender, AttCnt=mcast_json.AttCnt, AttSize=mcast_json.AttSize, Subject=mcast_json.Subject, UseTls=mcast_json.UseTls, TlsVer=mcast_json.TlsVer, Route=mcast_json.Route, Snt=mcast_json.Snt, Attempt=mcast_json.Attempt, Latency=mcast_json.Latency, ReceiptAck=mcast_json.ReceiptAck, Delivered=mcast_json.Delivered\n| distinct TimeGenerated, tostring(mimecastEventId), tostring(acc), tostring(aCode), tostring(Cphr), tostring(Dir), tostring(Error), tostring(DestinationIP), tostring(MsgId), tostring(Rcpt), tostring(RejCode), tostring(RejInfo), tostring(RejType), tostring(Sender), tostring(AttCnt), tostring(AttSize), tostring(Subject), tostring(UseTls), tostring(TlsVer), tostring(Route), tostring(Snt), tostring(Attempt), tostring(Latency), tostring(ReceiptAck), tostring(Delivered)\n",
         "size": 0,
         "timeContext": {
-          "durationMs": 0
+          "durationMs": 7776000000
         },
         "timeContextFromParameter": "time_range",
         "queryType": 0,
@@ -249,7 +248,7 @@
       "type": 3,
       "content": {
         "version": "KqlItem/1.0",
-        "query": "Mimecast_mail_CL\n| where RawData !has \"siem_ttp_\"\n| where RawData has \"ttp_\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend mimecastEventId=mcast_json.mimecastEventId\n| where mimecastEventId has \"ttp_\"\n| summarize count() by tostring(mimecastEventId), bin(TimeGenerated, 1h)\n\n\n",
+        "query": "union mimecast_ttp_url_CL, mimecast_ttp_attachment_CL, mimecast_ttp_impersonation_CL\n| where RawData has \"ttp_\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend mimecastEventId=mcast_json.mimecastEventId\n| where mimecastEventId has \"ttp_\"\n| summarize count() by tostring(mimecastEventId), bin(TimeGenerated, 1h)\n\n\n",
         "size": 0,
         "timeContext": {
           "durationMs": 0
@@ -272,7 +271,7 @@
       "type": 3,
       "content": {
         "version": "KqlItem/1.0",
-        "query": "Mimecast_mail_CL\n| where RawData !has \"siem_ttp\"\n| where RawData has \"ttp_url\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend userEmailAddress=mcast_json.userEmailAddress, url=mcast_json.url, ttpDefinition=mcast_json.ttpDefinition, action=mcast_json.action, adminOverride=mcast_json.adminOverride, userOverride=mcast_json.userOverride, scanResult=mcast_json.scanResult, category=mcast_json.category, userAwarenessAction=mcast_json.userAwarenessAction, route=mcast_json.route, similarDomain=mcast_json.similarDomain, heuristicDomainSource=mcast_json.heuristicDomainSource\n| distinct TimeGenerated, tostring(userEmailAddress), tostring(url), tostring(ttpDefinition), tostring(action), tostring(adminOverride), tostring(userOverride), tostring(scanResult), tostring(scanResult), tostring(category), tostring(userAwarenessAction), tostring(route), tostring(similarDomain), tostring(heuristicDomainSource)\n",
+        "query": "mimecast_ttp_url_CL\n| where RawData has \"ttp_url\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend userEmailAddress=mcast_json.userEmailAddress, url=mcast_json.url, ttpDefinition=mcast_json.ttpDefinition, action=mcast_json.action, adminOverride=mcast_json.adminOverride, userOverride=mcast_json.userOverride, scanResult=mcast_json.scanResult, category=mcast_json.category, userAwarenessAction=mcast_json.userAwarenessAction, route=mcast_json.route, similarDomain=mcast_json.similarDomain, heuristicDomainSource=mcast_json.heuristicDomainSource\n| distinct TimeGenerated, tostring(userEmailAddress), tostring(url), tostring(ttpDefinition), tostring(action), tostring(adminOverride), tostring(userOverride), tostring(scanResult), tostring(scanResult), tostring(category), tostring(userAwarenessAction), tostring(route), tostring(similarDomain), tostring(heuristicDomainSource)\n",
         "size": 0,
         "timeContext": {
           "durationMs": 0
@@ -295,7 +294,7 @@
       "type": 3,
       "content": {
         "version": "KqlItem/1.0",
-        "query": "Mimecast_mail_CL\n| where RawData has \"ttp_attachment\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend result=mcast_json.result, senderAddress=mcast_json.senderAddress, fileName=mcast_json.fileName, actionTriggered=mcast_json.actionTriggered, route=mcast_json.route, details=mcast_json.details, recipientAddress=mcast_json.recipientAddress, fileType=mcast_json.fileType\n| distinct TimeGenerated, tostring(result), tostring(senderAddress), tostring(fileName), tostring(actionTriggered), tostring(route), tostring(details), tostring(recipientAddress), tostring(fileType)\n",
+        "query": "mimecast_ttp_attachment_CL\n| where RawData has \"ttp_attachment\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend result=mcast_json.result, senderAddress=mcast_json.senderAddress, fileName=mcast_json.fileName, actionTriggered=mcast_json.actionTriggered, route=mcast_json.route, details=mcast_json.details, recipientAddress=mcast_json.recipientAddress, fileType=mcast_json.fileType\n| distinct TimeGenerated, tostring(result), tostring(senderAddress), tostring(fileName), tostring(actionTriggered), tostring(route), tostring(details), tostring(recipientAddress), tostring(fileType)\n",
         "size": 0,
         "timeContext": {
           "durationMs": 0
@@ -318,7 +317,7 @@
       "type": 3,
       "content": {
         "version": "KqlItem/1.0",
-        "query": "Mimecast_mail_CL\n| where RawData !has \"siem_ttp_\"\n| where RawData has \"ttp_impersonation\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend senderAddress=mcast_json.senderAddress, recipientAddress=mcast_json.recipientAddress, subject=mcast_json.subject, definition=mcast_json.definition, hits=mcast_json.hits, identifiers=mcast_json.identifiers, action=mcast_json.action, taggedExternal=mcast_json.taggedExternal, taggedMalicious=mcast_json.taggedMalicious, senderIpAddress=mcast_json.senderIpAddress\n| distinct TimeGenerated, tostring(senderAddress), tostring(recipientAddress), tostring(subject), tostring(definition), toint(hits), tostring(identifiers), tostring(action), toboolean(taggedExternal), toboolean(taggedMalicious), tostring(senderIpAddress)\n",
+        "query": "mimecast_ttp_impersonation_CL\n| where RawData has \"ttp_impersonation\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend senderAddress=mcast_json.senderAddress, recipientAddress=mcast_json.recipientAddress, subject=mcast_json.subject, definition=mcast_json.definition, hits=mcast_json.hits, identifiers=mcast_json.identifiers, action=mcast_json.action, taggedExternal=mcast_json.taggedExternal, taggedMalicious=mcast_json.taggedMalicious, senderIpAddress=mcast_json.senderIpAddress\n| distinct TimeGenerated, tostring(senderAddress), tostring(recipientAddress), tostring(subject), tostring(definition), toint(hits), tostring(identifiers), tostring(action), toboolean(taggedExternal), toboolean(taggedMalicious), tostring(senderIpAddress)\n",
         "size": 0,
         "timeContext": {
           "durationMs": 0
@@ -338,30 +337,13 @@
       "name": "text - 19"
     },
     {
-      "type": 11,
-      "content": {
-        "version": "LinkItem/1.0",
-        "style": "nav",
-        "links": [
-          {
-            "cellValue": "https://community.mimecast.com/s/article/Administration-Console-Audit-Logs-1478129523",
-            "linkTarget": "Url",
-            "linkLabel": "Click for more info",
-            "preText": "",
-            "style": "link"
-          }
-        ]
-      },
-      "name": "links - 21"
-    },
-    {
       "type": 3,
       "content": {
         "version": "KqlItem/1.0",
-        "query": "Mimecast_mail_CL\n| where RawData has \"audit_auth\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend mimecastEventId=mcast_json.mimecastEventId\n| summarize count() by tostring(mimecastEventId), bin(TimeGenerated, 1h)\n\n",
+        "query": "mimecast_audit_CL\n| where RawData has \"audit_auth\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend mimecastEventId=mcast_json.mimecastEventId\n| summarize count() by tostring(mimecastEventId), bin(TimeGenerated, 1h)\n\n",
         "size": 0,
         "timeContext": {
-          "durationMs": 0
+          "durationMs": 7776000000
         },
         "timeContextFromParameter": "time_range",
         "queryType": 0,
@@ -374,10 +356,10 @@
       "type": 3,
       "content": {
         "version": "KqlItem/1.0",
-        "query": "Mimecast_mail_CL\n| where RawData has \"audit_auth\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend mimecastEventId=mcast_json.mimecastEventId, mcType=mcast_json.mcType, user=mcast_json.user, app=mcast_json.app, src=mcast_json.src, action=mcast_json.action, method=mcast_json.method, auditType=mcast_json.auditType, category=mcast_json.category, id=mcast_json.id\n| distinct TimeGenerated, tostring(mimecastEventId), tostring(mcType), tostring(user), tostring(app), tostring(src), tostring(action), tostring(method), tostring(auditType), tostring(category), tostring(id)\n",
+        "query": "mimecast_audit_CL\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend mimecastEventId=mcast_json.mimecastEventId, mcType=mcast_json.mcType, user=mcast_json.user, app=mcast_json.app, src=mcast_json.src, action=mcast_json.action, method=mcast_json.method, auditType=mcast_json.auditType, category=mcast_json.category, id=mcast_json.id\n| distinct TimeGenerated, tostring(mimecastEventId), tostring(mcType), tostring(user), tostring(app), tostring(src), tostring(action), tostring(method), tostring(auditType), tostring(category), tostring(id)\n",
         "size": 0,
         "timeContext": {
-          "durationMs": 0
+          "durationMs": 7776000000
         },
         "timeContextFromParameter": "time_range",
         "queryType": 0,
@@ -396,7 +378,7 @@
     {
       "type": 1,
       "content": {
-        "json": "## Targeted Feed"
+        "json": "## Targeted Threat Intelligence"
       },
       "name": "text - 22"
     },
@@ -404,7 +386,7 @@
       "type": 3,
       "content": {
         "version": "KqlItem/1.0",
-        "query": "union Mimecast_mail_CL\n| where RawData has \"threat_intel_feed_csv_customer\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend key=mcast_json.key, FileMimeType=mcast_json.FileMimeType, FileName=mcast_json.FileName, FileSize=mcast_json.FileSize, MD5=mcast_json.MD5, Observations=mcast_json.Observations, RecipientAddress=mcast_json.RecipientAddress, Route=mcast_json.Route, SHA1=mcast_json.SHA1, SHA256=mcast_json.SHA256, SenderAddress=mcast_json.SenderAddress, SenderDomain=mcast_json.SenderDomain, SendingIP=mcast_json.SendingIP\n| distinct TimeGenerated, toint(key), tostring(FileMimeType), tostring(FileName), toint(FileSize), tostring(MD5), tostring(Observations), tostring(RecipientAddress), tostring(Route), tostring(SHA1), tostring(SHA256), tostring(SenderAddress), tostring(SenderDomain), tostring(SendingIP)\n| summarize count() by tostring(SHA256), bin(TimeGenerated, 1h)",
+        "query": "union mimecast_threat_intelligence_CL\n| where RawData has \"threat_intel_feed_csv_customer\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend key=mcast_json.key, FileMimeType=mcast_json.FileMimeType, FileName=mcast_json.FileName, FileSize=mcast_json.FileSize, MD5=mcast_json.MD5, Observations=mcast_json.Observations, RecipientAddress=mcast_json.RecipientAddress, Route=mcast_json.Route, SHA1=mcast_json.SHA1, SHA256=mcast_json.SHA256, SenderAddress=mcast_json.SenderAddress, SenderDomain=mcast_json.SenderDomain, SendingIP=mcast_json.SendingIP\n| distinct TimeGenerated, toint(key), tostring(FileMimeType), tostring(FileName), toint(FileSize), tostring(MD5), tostring(Observations), tostring(RecipientAddress), tostring(Route), tostring(SHA1), tostring(SHA256), tostring(SenderAddress), tostring(SenderDomain), tostring(SendingIP)\n| summarize count() by tostring(RecipientAddress), tostring(SenderAddress), tostring(FileMimeType), tostring(SHA256), tostring(SenderDomain), tostring(SendingIP), bin(TimeGenerated, 1h)",
         "size": 0,
         "timeContext": {
           "durationMs": 0
@@ -412,18 +394,18 @@
         "timeContextFromParameter": "time_range",
         "queryType": 0,
         "resourceType": "microsoft.operationalinsights/workspaces",
-        "visualization": "areachart",
+        "visualization": "table",
         "gridSettings": {
           "sortBy": [
             {
-              "itemKey": "TimeGenerated",
+              "itemKey": "count_",
               "sortOrder": 2
             }
           ]
         },
         "sortBy": [
           {
-            "itemKey": "TimeGenerated",
+            "itemKey": "count_",
             "sortOrder": 2
           }
         ],
@@ -489,7 +471,7 @@
     {
       "type": 1,
       "content": {
-        "json": "## Regional Feed"
+        "json": "## Regional Threeat Intelligence"
       },
       "name": "text - 24"
     },
@@ -497,17 +479,48 @@
       "type": 3,
       "content": {
         "version": "KqlItem/1.0",
-        "query": "union Mimecast_mail_CL\n| where RawData has \"threat_intel_feed_csv_grid\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend key=mcast_json.key, FileMimeType=mcast_json.FileMimeType, FileName=mcast_json.FileName, FileSize=mcast_json.FileSize, MD5=mcast_json.MD5, Observations=mcast_json.Observations, Route=mcast_json.Route, SHA1=mcast_json.SHA1, SHA256=mcast_json.SHA256, SendingIP=mcast_json.SendingIP\n| distinct TimeGenerated, toint(key), tostring(FileMimeType), tostring(FileName), toint(FileSize), tostring(MD5), tostring(Observations), tostring(Route), tostring(SHA1), tostring(SHA256), tostring(SendingIP)\n| summarize count() by tostring(SendingIP), bin(TimeGenerated, 1h)",
+        "query": "mimecast_threat_intelligence_CL\n| where RawData has \"threat_intel_feed_csv_grid\"\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend key=mcast_json.key, FileMimeType=mcast_json.FileMimeType, FileName=mcast_json.FileName, FileSize=mcast_json.FileSize, MD5=mcast_json.MD5, Observations=mcast_json.Observations, Route=mcast_json.Route, SHA1=mcast_json.SHA1, SHA256=mcast_json.SHA256, SendingIP=mcast_json.SendingIP\n| distinct TimeGenerated, toint(key), tostring(FileMimeType), tostring(FileName), toint(FileSize), tostring(MD5), tostring(Observations), tostring(Route), tostring(SHA1), tostring(SHA256), tostring(SendingIP)\n| summarize count() by tostring(FileMimeType), tostring(SHA256), tostring(SendingIP), bin(TimeGenerated, 1h)",
         "size": 0,
         "timeContext": {
           "durationMs": 0
         },
         "timeContextFromParameter": "time_range",
         "queryType": 0,
-        "resourceType": "microsoft.operationalinsights/workspaces"
+        "resourceType": "microsoft.operationalinsights/workspaces",
+        "gridSettings": {
+          "sortBy": [
+            {
+              "itemKey": "TimeGenerated",
+              "sortOrder": 2
+            }
+          ]
+        },
+        "sortBy": [
+          {
+            "itemKey": "TimeGenerated",
+            "sortOrder": 2
+          }
+        ],
+        "mapSettings": {
+          "locInfo": "AzureResource",
+          "locInfoColumn": "count_",
+          "sizeSettings": "SendingIP",
+          "sizeAggregation": "Sum",
+          "legendMetric": "count_",
+          "legendAggregation": "Sum",
+          "itemColorSettings": {
+            "nodeColorField": "count_",
+            "colorAggregation": "Sum",
+            "type": "heatmap",
+            "heatmapPalette": "greenRed"
+          }
+        }
       },
       "name": "query - 26"
     }
+  ],
+  "fallbackResourceIds": [
+    "/subscriptions/c70494db-cecf-4e6d-b1ce-5d08040c6982/resourcegroups/connectorworkshoprg/providers/microsoft.operationalinsights/workspaces/connectorworkshopws"
   ],
   "fromTemplateId": "sentinel-Mimecast",
   "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/workbook.json"
