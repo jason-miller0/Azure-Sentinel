@@ -38,39 +38,39 @@
     ],
     "sampleQueries": [
         {
-            "description" : "Mimecast Targeted Threat Protection - Attachment Protect Logs",
+            "description": "Mimecast Targeted Threat Protection - Attachment Protect Logs",
             "query": "mimecast_ttp_attachment_CL\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend result=mcast_json.result, senderAddress=mcast_json.senderAddress, fileName=mcast_json.fileName, actionTriggered=mcast_json.actionTriggered, route=mcast_json.route, details=mcast_json.details, recipientAddress=mcast_json.recipientAddress, fileType=mcast_json.fileType\n| distinct TimeGenerated, tostring(result), tostring(senderAddress), tostring(fileName), tostring(actionTriggered), tostring(route), tostring(details), tostring(recipientAddress), tostring(fileType)\n"
         },
         {
-            "description" : "Mimecast Targeted Threat Protection - URL Protect Logs",
+            "description": "Mimecast Targeted Threat Protection - URL Protect Logs",
             "query": "mimecast_ttp_url_CL\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend userEmailAddress=mcast_json.userEmailAddress, url=mcast_json.url, ttpDefinition=mcast_json.ttpDefinition, action=mcast_json.action, adminOverride=mcast_json.adminOverride, userOverride=mcast_json.userOverride, scanResult=mcast_json.scanResult, category=mcast_json.category, userAwarenessAction=mcast_json.userAwarenessAction, route=mcast_json.route, similarDomain=mcast_json.similarDomain, heuristicDomainSource=mcast_json.heuristicDomainSource\n| distinct TimeGenerated, tostring(userEmailAddress), tostring(url), tostring(ttpDefinition), tostring(action), tostring(adminOverride), tostring(userOverride), tostring(scanResult), tostring(scanResult), tostring(category), tostring(userAwarenessAction), tostring(route), tostring(similarDomain), tostring(heuristicDomainSource)\n"
         },
         {
-            "description" : "Mimecast Secure Email Gateway - Receipt Logs",
+            "description": "Mimecast Secure Email Gateway - Receipt Logs",
             "query": "mimecast_seg_CL\n| where RawData has 'mail_receipt'\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend mimecastEventId=mcast_json.mimecastEventId, acc=mcast_json.acc, aCode=mcast_json.aCode, Act=mcast_json.Act, Cphr=mcast_json.Cphr, Dir=mcast_json.Dir, Error=mcast_json.Error, SourceIP=mcast_json.IP, MsgId=mcast_json.MsgId, Rcpt=mcast_json.Rcpt, headerFrom=mcast_json.headerFrom, RejCode=mcast_json.RejCode, RejInfo=mcast_json.RejInfo, RejType=mcast_json.RejType, Sender=mcast_json.Sender, SpamInfo=mcast_json.SpamInfo, SpamLimit=mcast_json.SpamLimit, SpamScore=mcast_json.SpamScore, Subject=mcast_json.Subject, TlsVer=mcast_json.TlsVer, Virus=mcast_json.Virus\n| distinct TimeGenerated, tostring(mimecastEventId), tostring(acc), tostring(aCode), tostring(Act), tostring(Cphr), tostring(Dir), tostring(Error), tostring(SourceIP), tostring(MsgId), tostring(Rcpt), tostring(headerFrom), tostring(RejCode), tostring(RejType), tostring(Sender), tostring(SpamInfo), tostring(SpamLimit), tostring(SpamScore), tostring(Subject), tostring(TlsVer), tostring(Virus)\n"
         },
         {
-            "description" : "Mimecast Secure Email Gateway - Process Logs",
+            "description": "Mimecast Secure Email Gateway - Process Logs",
             "query": "mimecast_seg_CL\n| where RawData has 'mail_process'\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend mimecastEventId=mcast_json.mimecastEventId, acc=mcast_json.acc, aCode=mcast_json.aCode, Act=mcast_json.Act, Hld=mcast_json.Hld, MsgId=mcast_json.MsgId, MsgSize=mcast_json.MsgSize, AttCnt=mcast_json.AttCnt, AttSize=mcast_json.AttSize, AttNames=mcast_json.AttNames, IPInternalName=mcast_json.IPInternalName, IPNewDomain=mcast_json.IPNewDomain, IPReplyMismatch=mcast_json.IPReplyMismatch, IPSimilarDomain=mcast_json.IPSimilarDomain, IPThreatDict=mcast_json.IPThreatDict\n| distinct TimeGenerated, tostring(mimecastEventId), tostring(acc), tostring(aCode), tostring(Act), tostring(Hld), tostring(MsgId), tostring(MsgSize), tostring(AttCnt), tostring(AttSize), tostring(AttNames), tostring(IPInternalName), tostring(IPNewDomain), tostring(IPReplyMismatch), tostring(IPSimilarDomain), tostring(IPThreatDict)\n"
         },
         {
-            "description" : "Mimecast Secure Email Gateway - Delivery Logs",
+            "description": "Mimecast Secure Email Gateway - Delivery Logs",
             "query": "mimecast_seg_CL\n| where RawData has 'mail_delivery'\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend mimecastEventId=mcast_json.mimecastEventId, acc=mcast_json.acc, aCode=mcast_json.aCode, Cphr=mcast_json.Cphr, Dir=mcast_json.Dir, Error=mcast_json.Err, DestinationIP=mcast_json.IP, MsgId=mcast_json.MsgId, Rcpt=mcast_json.Rcpt, RejCode=mcast_json.RejCode, RejInfo=mcast_json.RejInfo, RejType=mcast_json.RejType, Sender=mcast_json.Sender, AttCnt=mcast_json.AttCnt, AttSize=mcast_json.AttSize, Subject=mcast_json.Subject, UseTls=mcast_json.UseTls, TlsVer=mcast_json.TlsVer, Route=mcast_json.Route, Snt=mcast_json.Snt, Attempt=mcast_json.Attempt, Latency=mcast_json.Latency, ReceiptAck=mcast_json.ReceiptAck, Delivered=mcast_json.Delivered\n| distinct TimeGenerated, tostring(mimecastEventId), tostring(acc), tostring(aCode), tostring(Cphr), tostring(Dir), tostring(Error), tostring(DestinationIP), tostring(MsgId), tostring(Rcpt), tostring(RejCode), tostring(RejInfo), tostring(RejType), tostring(Sender), tostring(AttCnt), tostring(AttSize), tostring(Subject), tostring(UseTls), tostring(TlsVer), tostring(Route), tostring(Snt), tostring(Attempt), tostring(Latency), tostring(ReceiptAck), tostring(Delivered)\n"
         },
         {
-            "description" : "Mimecast Targeted Threat Protection - Impersonation Protect Logs",
+            "description": "Mimecast Targeted Threat Protection - Impersonation Protect Logs",
             "query": "mimecast_ttp_impersonation_CL\n| where RawData has 'ttp_impersonation'\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend senderAddress=mcast_json.senderAddress, recipientAddress=mcast_json.recipientAddress, subject=mcast_json.subject, definition=mcast_json.definition, hits=mcast_json.hits, identifiers=mcast_json.identifiers, action=mcast_json.action, taggedExternal=mcast_json.taggedExternal, taggedMalicious=mcast_json.taggedMalicious, senderIpAddress=mcast_json.senderIpAddress\n| distinct TimeGenerated, tostring(senderAddress), tostring(recipientAddress), tostring(subject), tostring(definition), toint(hits), tostring(identifiers), tostring(action), toboolean(taggedExternal), toboolean(taggedMalicious), tostring(senderIpAddress)\n"
         },
         {
-            "description" : "Mimecast Audit and Authentication Logs",
+            "description": "Mimecast Audit and Authentication Logs",
             "query": "mimecast_audit_CL\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend mimecastEventId=mcast_json.mimecastEventId, mcType=mcast_json.mcType, user=mcast_json.user, app=mcast_json.app, src=mcast_json.src, action=mcast_json.action, method=mcast_json.method, auditType=mcast_json.auditType, category=mcast_json.category, id=mcast_json.id\n| distinct TimeGenerated, tostring(mimecastEventId), tostring(mcType), tostring(user), tostring(app), tostring(src), tostring(action), tostring(method), tostring(auditType), tostring(category), tostring(id)\n"
         },
         {
-            "description" : "Mimecast Threat Intelligence Feed - Targeted",
+            "description": "Mimecast Threat Intelligence Feed - Targeted",
             "query": "mimecast_threat_intelligence_CL\n| where RawData has 'threat_intel_feed_csv_customer'\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend key=mcast_json.key, FileMimeType=mcast_json.FileMimeType, FileName=mcast_json.FileName, FileSize=mcast_json.FileSize, MD5=mcast_json.MD5, Observations=mcast_json.Observations, RecipientAddress=mcast_json.RecipientAddress, Route=mcast_json.Route, SHA1=mcast_json.SHA1, SHA256=mcast_json.SHA256, SenderAddress=mcast_json.SenderAddress, SenderDomain=mcast_json.SenderDomain, SendingIP=mcast_json.SendingIP\n| distinct TimeGenerated, toint(key), tostring(FileMimeType), tostring(FileName), toint(FileSize), tostring(MD5), tostring(Observations), tostring(RecipientAddress), tostring(Route), tostring(SHA1), tostring(SHA256), tostring(SenderAddress), tostring(SenderDomain), tostring(SendingIP)\n"
         },
         {
-            "description" : "Mimecast Threat Intelligence Feed - Regional",
+            "description": "Mimecast Threat Intelligence Feed - Regional",
             "query": "mimecast_threat_intelligence_CL\n| where RawData has 'threat_intel_feed_csv_grid'\n| extend mcast_payload = substring(RawData, 20)\n| extend mcast_json=parse_json(mcast_payload)\n| extend key=mcast_json.key, FileMimeType=mcast_json.FileMimeType, FileName=mcast_json.FileName, FileSize=mcast_json.FileSize, MD5=mcast_json.MD5, Observations=mcast_json.Observations, Route=mcast_json.Route, SHA1=mcast_json.SHA1, SHA256=mcast_json.SHA256, SendingIP=mcast_json.SendingIP\n| distinct TimeGenerated, toint(key), tostring(FileMimeType), tostring(FileName), toint(FileSize), tostring(MD5), tostring(Observations), tostring(Route), tostring(SHA1), tostring(SHA256), tostring(SendingIP)\n| summarize count() by tostring(SendingIP), bin(TimeGenerated, 1h)\n"
         }
     ],
@@ -175,7 +175,7 @@
         {
             "title": "",
             "description": ">This data connector depends on a set of parsers based on Kusto Functions to work as expected. [Follow these steps](Link to Kusto Function on Azure Sentinel GitHub) to create the Kusto Functions aliases for, **Mimecast**",
-            "instructions": [ ]
+            "instructions": []
         },
         {
             "title": "1. Install and onboard the agent for Linux",
@@ -218,19 +218,20 @@
         {
             "title": "2. Configure the logs to be collected",
             "description": "Define each log file with pre-determined Custom Log names,\n this is important to ensure references to Azure Functions within Workbooks and queries operate as intended.",
-            "instructions": ["Click on the workspace advanced settings **Configuration**, select **Data** and then **Custom Logs**.\n
-            >   Set the type as Linux.\n
-            >   Use the below custom name for each log file show below;\n\n
-            *Log file paths* to *Custom Logs name*\n\n
-            /opt/Mimecast/Logs/audit.log > mimecast_audit_CL\n
-            /opt/Mimecast/Logs/ttp_url.log > mimecast_ttp_url_CL\n
-            /opt/Mimecast/Logs/ttp_impersonation.log > mimecast_ttp_impersonation_CL\n
-            /opt/Mimecast/Logs/ttp_attachment.log > mimecast_ttp_attachment_CL\n
-            /opt/Mimecast/Logs/siem.log > mimecast_seg_CL\n
-            /opt/Mimecast/Logs/threat_intel_feed.log > mimecast_threat_intelligence_CL\n
-            >   Repeat steps 2-3 for each of files under the /opt/Mimecast/Logs directory.\n
-            >   Select **Apply below configuration to my machines**.\n
-            >   Click **Save**.",
+            "instructions": [
+                "Click on the workspace advanced settings **Configuration**, select **Data** and then **Custom Logs**.\n",
+                "*   Set the type as Linux.\n",
+                ">   Use the below custom name for each log file show below;\n",
+                "*Log file paths* to *Custom Logs name*\n",
+                "/opt/Mimecast/Logs/audit.log > mimecast_audit_CL\n",
+                "/opt/Mimecast/Logs/ttp_url.log > mimecast_ttp_url_CL\n",
+                "/opt/Mimecast/Logs/ttp_impersonation.log > mimecast_ttp_impersonation_CL\n",
+                "/opt/Mimecast/Logs/ttp_attachment.log > mimecast_ttp_attachment_CL\n",
+                "/opt/Mimecast/Logs/siem.log > mimecast_seg_CL\n",
+                "/opt/Mimecast/Logs/threat_intel_feed.log > mimecast_threat_intelligence_CL\n",
+                ">   Repeat steps 2-3 for each of files under the /opt/Mimecast/Logs directory.\n",
+                ">   Select **Apply below configuration to my machines**.\n",
+                ">   Click **Save**.\n",
                 {
                     "parameters": {
                         "linkType": "OpenAdvancedWorkspaceSettings"
